@@ -92,7 +92,8 @@ spin();
 </script>
 """
 
-sb = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
+SB_URL = "https://supabase.co"
+sb = create_client(SB_URL, st.secrets["SUPABASE_KEY"].strip())
 if "sb_session" in st.session_state:
     try:
         sb.auth.set_session(st.session_state["sb_session"].access_token, st.session_state["sb_session"].refresh_token)
