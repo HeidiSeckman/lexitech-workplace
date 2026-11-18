@@ -16,21 +16,20 @@ html, body, .stApp, p, label, h1, h2, h3, h4, li { font-family: 'Plus Jakarta Sa
 .mono-tag { font-family: 'JetBrains Mono', monospace !important; font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.08em; color: #B81D6F !important; text-transform: uppercase; }
 .nav-bar { background: rgba(255, 255, 255, 0.94); border: 1.5px solid #E5B8CE; border-radius: 14px; padding: 14px 22px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(184, 29, 111, 0.07); }
 .status-pill { background: #FDF2F7; border: 1px solid #B81D6F; border-radius: 999px; padding: 6px 14px; font-family: 'JetBrains Mono', monospace !important; font-size: 11px !important; font-weight: 700 !important; color: #B81D6F !important; }
-.hero-box { background: linear-gradient(135deg, #24101C 0%, #4A1533 55%, #881652 100%); border-radius: 16px; padding: 24px 28px; margin-bottom: 20px; box-shadow: 0 10px 28px rgba(184, 29, 111, 0.16); }
+.hero-box { background: linear-gradient(135deg, #24101C 0%, #4A1533 55%, #881652 100%); border-radius: 16px; padding: 24px 28px; margin-bottom: 16px; box-shadow: 0 10px 28px rgba(184, 29, 111, 0.16); }
 .hero-box h1, .hero-box p, .hero-box span { color: #FFFFFF !important; }
-.auth-shell { background: #FFFFFF; border: 2px solid #E5B8CE; border-top: 5px solid #B81D6F; border-radius: 20px; padding: 26px 28px 22px; box-shadow: 0 14px 36px rgba(184, 29, 111, 0.12); margin-top: 6px; }
+[data-testid="stVerticalBlockBorderWrapper"] { background: #FFFFFF !important; border: 2px solid #E5B8CE !important; border-top: 5px solid #B81D6F !important; border-radius: 18px !important; padding: 18px 22px !important; box-shadow: 0 14px 36px rgba(184, 29, 111, 0.10) !important; }
 .stSelectbox div[data-baseweb="select"] > div, .stMultiSelect div[data-baseweb="select"] > div, .stTextArea textarea, .stTextInput input, [data-testid="stFileUploaderDropzone"] { background-color: #FDF2F7 !important; color: #1A161F !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 10px 14px !important; }
 [data-testid="stAlert"], [data-testid="stAlertContainer"], .stSpinner > div { background-color: #FDF2F7 !important; color: #1A161F !important; border: 1.5px solid #B81D6F !important; border-radius: 10px !important; }
-div.stButton > button, div.stDownloadButton > button, [data-testid="stFileUploaderDropzone"] button { background: linear-gradient(135deg, #E11D74 0%, #9D174D 55%, #581C87 100%) !important; color: #FFFFFF !important; border: 1.5px solid #F9A8D4 !important; border-radius: 999px !important; padding: 13px 34px !important; min-height: 48px !important; font-size: 15px !important; font-weight: 700 !important; letter-spacing: 0.03em !important; box-shadow: 0 8px 22px rgba(225, 29, 116, 0.30) !important; transition: all 0.2s ease !important; }
+div.stButton > button, div.stDownloadButton > button, [data-testid="stFileUploaderDropzone"] button { background: linear-gradient(135deg, #E11D74 0%, #9D174D 55%, #581C87 100%) !important; color: #FFFFFF !important; border: 1.5px solid #F9A8D4 !important; border-radius: 999px !important; padding: 13px 34px !important; min-height: 48px !important; font-size: 15px !important; font-weight: 700 !important; letter-spacing: 0.03em !important; box-shadow: 0 8px 22px rgba(225, 29, 116, 0.28) !important; transition: all 0.2s ease !important; }
 div.stButton > button:hover, div.stDownloadButton > button:hover { transform: translateY(-2px) !important; box-shadow: 0 12px 28px rgba(225, 29, 116, 0.45) !important; }
 button *, div.stButton > button *, div.stDownloadButton > button *, [data-testid="stFileUploaderDropzone"] button * { color: #FFFFFF !important; }
 [data-testid="stTextInput"] button { background: #B81D6F !important; border: none !important; border-radius: 8px !important; padding: 6px 10px !important; min-height: auto !important; }
 [data-testid="stTextInput"] button svg { fill: #FFFFFF !important; }
-.stTabs [data-baseweb="tab-list"] { background-color: #FDF2F7 !important; border: 1.5px solid #E5B8CE !important; border-radius: 999px !important; padding: 6px !important; gap: 8px !important; display: inline-flex !important; margin-bottom: 14px !important; }
-.stTabs [data-baseweb="tab"] { background-color: transparent !important; border: none !important; border-radius: 999px !important; padding: 10px 26px !important; font-size: 14.5px !important; font-weight: 700 !important; letter-spacing: 0.02em !important; transition: all 0.2s ease !important; }
-.stTabs [aria-selected="true"] { background: linear-gradient(135deg, #D91E7A 0%, #88134D 100%) !important; box-shadow: 0 4px 14px rgba(184, 29, 111, 0.30) !important; }
-.stTabs [aria-selected="true"] * { color: #FFFFFF !important; }
-.stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"] { display: none !important; }
+[data-testid="stRadio"] > div { display: flex !important; gap: 12px !important; width: 100% !important; }
+[data-testid="stRadio"] label { flex: 1 !important; justify-content: center !important; background: #FDF2F7 !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 12px 18px !important; font-weight: 700 !important; cursor: pointer !important; }
+[data-testid="stRadio"] label:has(input:checked) { background: linear-gradient(135deg, #D91E7A 0%, #88134D 100%) !important; border-color: #B81D6F !important; box-shadow: 0 4px 14px rgba(184, 29, 111, 0.28) !important; }
+[data-testid="stRadio"] label:has(input:checked) p { color: #FFFFFF !important; }
 .lexitech-footer { background: #FDF2F7; border: 1px solid #E5B8CE; border-radius: 12px; padding: 14px 18px; text-align: center; font-size: 12.5px; margin-top: 28px; }
 </style>
 """, unsafe_allow_html=True)
@@ -68,34 +67,34 @@ if "user" not in st.session_state:
     st.markdown(f'<div class="nav-bar">{LOGO_SVG}<div class="status-pill">● SECURE MATTER VAULT // v2.0</div></div>', unsafe_allow_html=True)
     _, mid, _ = st.columns((1, 1.35, 1))
     with mid:
-        st.markdown('<div class="hero-box" style="text-align:center;margin-bottom:14px;"><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;">CLOUD-SAVED LEGAL &amp; TAX WORKSPACE</span><h1 style="margin:6px 0;font-size:26px;">Welcome to LexiTech Vault</h1><p style="margin:0;font-size:13.8px;">Sign in or create a free account to save case folders and run all 4 forensic AI engines.</p></div>', unsafe_allow_html=True)
-        st.markdown('<div class="auth-shell">', unsafe_allow_html=True)
-        t_in, t_up = st.tabs(("Member Login", "Create Account"))
-        with t_in:
-            em = st.text_input("Email Address", placeholder="you@example.com", key="in_em")
-            pw = st.text_input("Password", type="password", placeholder="••••••••", key="in_pw")
+        st.markdown('<div class="hero-box" style="text-align:center;"><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;">CLOUD-SAVED LEGAL &amp; TAX WORKSPACE</span><h1 style="margin:6px 0;font-size:26px;">Welcome to LexiTech Vault</h1><p style="margin:0;font-size:13.8px;">Sign in or create a free account to save case folders and run all 4 forensic AI engines.</p></div>', unsafe_allow_html=True)
+        with st.container(border=True):
+            mode = st.radio("Access Mode", ("Member Login", "Create Account"), horizontal=True, label_visibility="collapsed")
             st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
-            if st.button("Unlock LexiTech Workspace", key="btn_in", use_container_width=True):
-                try:
-                    res = sb.auth.sign_in_with_password({"email": em, "password": pw})
-                    st.session_state["user"] = res.user
-                    st.session_state["sb_session"] = res.session
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"Login failed: {e}")
-        with t_up:
-            em2 = st.text_input("Email Address", placeholder="you@example.com", key="up_em")
-            pw2 = st.text_input("Create Password (min 6 chars)", type="password", placeholder="••••••••", key="up_pw")
-            st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
-            if st.button("Launch My Free Workspace", key="btn_up", use_container_width=True):
-                try:
-                    res = sb.auth.sign_up({"email": em2, "password": pw2})
-                    st.session_state["user"] = res.user
-                    st.session_state["sb_session"] = res.session
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"Sign-up failed: {e}")
-        st.markdown('</div>', unsafe_allow_html=True)
+            if mode == "Member Login":
+                em = st.text_input("Email Address", placeholder="you@example.com", key="in_em")
+                pw = st.text_input("Password", type="password", placeholder="••••••••", key="in_pw")
+                st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
+                if st.button("Unlock LexiTech Workspace", key="btn_in", use_container_width=True):
+                    try:
+                        res = sb.auth.sign_in_with_password({"email": em, "password": pw})
+                        st.session_state["user"] = res.user
+                        st.session_state["sb_session"] = res.session
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Login failed: {e}")
+            else:
+                em2 = st.text_input("Email Address", placeholder="you@example.com", key="up_em")
+                pw2 = st.text_input("Create Password (min 6 chars)", type="password", placeholder="••••••••", key="up_pw")
+                st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
+                if st.button("Launch My Free Workspace", key="btn_up", use_container_width=True):
+                    try:
+                        res = sb.auth.sign_up({"email": em2, "password": pw2})
+                        st.session_state["user"] = res.user
+                        st.session_state["sb_session"] = res.session
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Sign-up failed: {e}")
     st.stop()
 user = st.session_state["user"]
 projs = sb.table("projects").select("*").order("created_at", desc=True).execute().data or []
@@ -134,9 +133,10 @@ if not active_proj:
 saved_reps = sb.table("reports").select("*").eq("project_id", active_proj["id"]).order("created_at", desc=True).execute().data or []
 st.markdown(f'<div class="hero-box"><span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;">ACTIVE MATTER ON FILE // {len(saved_reps)} SAVED AUDITS</span><h1 style="margin:4px 0 4px;font-size:28px;">{active_proj["title"]}</h1><p style="margin:0;font-size:14px;">{active_proj.get("client_or_matter") or "LexiTech Cloud Matter Folder"}</p></div>', unsafe_allow_html=True)
 
-tab_run, tab_vault = st.tabs(("Run 4-Engine AI Suite", f"Saved Reports on File ({len(saved_reps)})"))
+view_mode = st.radio("Workspace View", ("⚡ Run 4-Engine AI Suite", f"🗄️ Saved Reports on File ({len(saved_reps)})"), horizontal=True, label_visibility="collapsed")
+st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
 
-with tab_run:
+if view_mode.startswith("⚡"):
     tool = st.selectbox("Select Workspace Engine:", (
         "Tool 01 // Legal & Tax Document Researcher",
         "Tool 02 // Dual-Corpus Tax-Trap Scanner",
@@ -180,9 +180,9 @@ with tab_run:
         st.success("Saved directly to your cloud case folder!")
         st.markdown(st.session_state["last_out"])
 
-with tab_vault:
+else:
     if not saved_reps:
-        st.info("No reports saved in this folder yet—run any tool in the first tab to save it permanently here!")
+        st.info("No reports saved in this folder yet—run any tool in the first view to save it permanently here!")
     else:
         full_dossier = f"LEXITECH MASTER CASE DOSSIER: {active_proj['title']}\n{'='*60}\n\n"
         for r in saved_reps:
