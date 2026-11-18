@@ -92,9 +92,11 @@ spin();
 </script>
 """
 
-SB_URL = "https://supabase.co"
-sb = create_client(SB_URL, st.secrets["SUPABASE_KEY"].strip())
-if "sb_session" in st.session_state:
+SB_URL = st.secrets["SUPABASE_URL"].strip().rstrip("/")
+SB_KEY = "".join(st.secrets["SUPABASE_KEY"].split())
+sb = create_client(SB_URL, SB_KEY)
+
+if "sb_session" in st.session_state and st.session_state["sb_session"]:
     try:
         sb.auth.set_session(st.session_state["sb_session"].access_token, st.session_state["sb_session"].refresh_token)
     except Exception:
@@ -114,25 +116,22 @@ if "user" not in st.session_state:
                 st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
                 if st.button("Unlock LexiTech Workspace", key="btn_in", use_container_width=True):
                     try:
-                        res = sb.auth.sign_in_with_password({"email": em, "password": pw})
+                        res = sb.auth.sign_in_with_password({"email": em.strip(), "password": pw})
                         st.session_state["user"] = res.user
                         st.session_state["sb_session"] = res.session
                         st.rerun()
                     except Exception as e:
-                        st.error(f"Login failed: {e}")
+                        st.error(f"Login failed ({SB_URL}): {e}")
             else:
                 em2 = st.text_input("Email Address", placeholder="you@example.com", key="up_em")
                 pw2 = st.text_input("Create Password (min 6 chars)", type="password", placeholder="••••••••", key="up_pw")
                 st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
                 if st.button("Launch My Free Workspace", key="btn_up", use_container_width=True):
                     try:
-                        res = sb.auth.sign_up({"email": em2, "password": pw2})
+                        res = sb.auth.sign_up({"email": em2.strip(), "password": pw2})
+                        if not res.session:
+                            res = sb.auth.sign_in_with_password({"email": em2.strip(), "password": pw2})
                         st.session_state["user"] = res.user
-                        st.session_state["sb_session"] = res.session
-                        st.rerun()
-                    except Exception as e:
-                        st.error(f"Sign-up failed: {e}")
-    st.stop()
 user = st.session_state["user"]
 projs = sb.table("projects").select("*").order("created_at", desc=True).execute().data or []
 
@@ -159,7 +158,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown('<div class="mono-tag">AI ENGINE KEY</div>', unsafe_allow_html=True)
     byo_key = st.text_input("Optional Custom Gemini Key", type="password", placeholder="Leave blank for Starter Credits")
-    active_key = byo_key or st.secrets.get("GEMINI_API_KEY", "")
+    active_key = byo_key or "".join(st.secrets.get("GEMINI_API_KEY", "").split())
 
 st.markdown(f'<div class="nav-bar">{LOGO_SVG}<div class="status-pill">● VAULT ONLINE // {len(projs)} SAVED FOLDERS</div></div>', unsafe_allow_html=True)
 
