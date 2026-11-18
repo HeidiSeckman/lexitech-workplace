@@ -1,7 +1,7 @@
 # 🏛️ LexiTech Pro Workspace — Unified Legal & Tax AI Command Center
 ### Cloud-Saved Matter Vault & 4-Engine Forensic Suite by Heidi Seckman
 
-🌐 **LexiTech Studio Headquarters:** https://github.io
+🌐 **LexiTech Studio Headquarters:** https://heidiseckman.github.io/LEXITECH/
 
 ## 🚀 Overview
 **LexiTech Pro Workspace** unifies all of LexiTech's closed-book legal and tax AI engines inside a single account-based SaaS platform backed by **Supabase Authentication & PostgreSQL Cloud Storage**. Users create an account, organize client or personal case folders, run multi-engine forensic audits, and permanently save every report and redline on file.
