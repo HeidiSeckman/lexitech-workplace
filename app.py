@@ -20,16 +20,15 @@ html, body, .stApp, p, label, h1, h2, h3, h4, li { font-family: 'Plus Jakarta Sa
 .hero-box { background: linear-gradient(135deg, #24101C 0%, #4A1533 55%, #881652 100%); border-radius: 18px; padding: 20px 28px 24px; margin-bottom: 16px; box-shadow: 0 12px 32px rgba(184, 29, 111, 0.22); }
 .hero-box h1, .hero-box p, .hero-box span { color: #FFFFFF !important; }
 [data-testid="stVerticalBlockBorderWrapper"] { background: #FFFFFF !important; border: 2px solid #E5B8CE !important; border-top: 5px solid #B81D6F !important; border-radius: 18px !important; padding: 18px 22px !important; box-shadow: 0 14px 36px rgba(184, 29, 111, 0.10) !important; }
-.stSelectbox div[data-baseweb="select"] > div, .stMultiSelect div[data-baseweb="select"] > div, .stTextArea textarea, .stTextInput input, [data-testid="stFileUploaderDropzone"] { background-color: #FDF2F7 !important; color: #1A161F !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 10px 14px !important; }
+.stSelectbox div[data-baseweb="select"] > div, .stTextArea textarea, .stTextInput input, [data-testid="stFileUploaderDropzone"] { background-color: #FDF2F7 !important; color: #1A161F !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 10px 14px !important; }
 [data-testid="stAlert"], [data-testid="stAlertContainer"], .stSpinner > div { background-color: #FDF2F7 !important; color: #1A161F !important; border: 1.5px solid #B81D6F !important; border-radius: 10px !important; }
-div.stButton > button, div.stDownloadButton > button, [data-testid="stFileUploaderDropzone"] button { background: linear-gradient(135deg, #E11D74 0%, #9D174D 55%, #581C87 100%) !important; color: #FFFFFF !important; border: 1.5px solid #F9A8D4 !important; border-radius: 999px !important; padding: 13px 34px !important; min-height: 48px !important; font-size: 15px !important; font-weight: 700 !important; letter-spacing: 0.03em !important; box-shadow: 0 8px 22px rgba(225, 29, 116, 0.28) !important; transition: all 0.2s ease !important; }
-div.stButton > button:hover, div.stDownloadButton > button:hover { transform: translateY(-2px) !important; box-shadow: 0 12px 28px rgba(225, 29, 116, 0.45) !important; }
+div.stButton > button, div.stDownloadButton > button, [data-testid="stFileUploaderDropzone"] button { background: linear-gradient(135deg, #E11D74 0%, #9D174D 55%, #581C87 100%) !important; color: #FFFFFF !important; border: 1.5px solid #F9A8D4 !important; border-radius: 999px !important; padding: 13px 34px !important; min-height: 48px !important; font-size: 15px !important; font-weight: 700 !important; box-shadow: 0 8px 22px rgba(225, 29, 116, 0.28) !important; }
 button *, div.stButton > button *, div.stDownloadButton > button *, [data-testid="stFileUploaderDropzone"] button * { color: #FFFFFF !important; }
 [data-testid="stTextInput"] button { background: #B81D6F !important; border: none !important; border-radius: 8px !important; padding: 6px 10px !important; min-height: auto !important; }
 [data-testid="stTextInput"] button svg { fill: #FFFFFF !important; }
 [data-testid="stRadio"] > div { display: flex !important; gap: 12px !important; width: 100% !important; }
-[data-testid="stRadio"] label { flex: 1 !important; justify-content: center !important; background: #FDF2F7 !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 12px 18px !important; font-weight: 700 !important; cursor: pointer !important; }
-[data-testid="stRadio"] label:has(input:checked) { background: linear-gradient(135deg, #D91E7A 0%, #88134D 100%) !important; border-color: #B81D6F !important; box-shadow: 0 4px 14px rgba(184, 29, 111, 0.28) !important; }
+[data-testid="stRadio"] label { flex: 1 !important; justify-content: center !important; background: #FDF2F7 !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 12px 18px !important; font-weight: 700 !important; }
+[data-testid="stRadio"] label:has(input:checked) { background: linear-gradient(135deg, #D91E7A 0%, #88134D 100%) !important; border-color: #B81D6F !important; }
 [data-testid="stRadio"] label:has(input:checked) p { color: #FFFFFF !important; }
 .lexitech-footer { background: #FDF2F7; border: 1px solid #E5B8CE; border-radius: 12px; padding: 14px 18px; text-align: center; font-size: 12.5px; margin-top: 28px; }
 </style>
@@ -38,9 +37,8 @@ button *, div.stButton > button *, div.stDownloadButton > button *, [data-testid
 logo_b64 = ""
 if os.path.exists("LEXItech.PNG"):
     im = Image.open("LEXItech.PNG").convert("RGBA")
-    bbox = im.getbbox()
-    if bbox:
-        im = im.crop(bbox)
+    if im.getbbox():
+        im = im.crop(im.getbbox())
     buf = io.BytesIO()
     im.save(buf, format="PNG")
     logo_b64 = base64.b64encode(buf.getvalue()).decode()
@@ -66,8 +64,7 @@ GLOBE_3D = """
 </div>
 <script>
 const g = document.getElementById('globe'), ctx = g.getContext('2d');
-let rot = 0;
-const dots = [];
+let rot = 0; const dots = [];
 for (let lat = -80; lat <= 80; lat += 20) {
   for (let lon = 0; lon < 360; lon += 20) {
     const phi = lat * Math.PI / 180, theta = lon * Math.PI / 180;
@@ -75,16 +72,13 @@ for (let lat = -80; lat <= 80; lat += 20) {
   }
 }
 function spin() {
-  ctx.clearRect(0, 0, 140, 140);
-  rot += 0.018;
+  ctx.clearRect(0, 0, 140, 140); rot += 0.018;
   dots.forEach(d => {
     const x = d.x * Math.cos(rot) - d.z * Math.sin(rot);
     const z = d.x * Math.sin(rot) + d.z * Math.cos(rot);
     const scale = 56 / (2.4 - z);
-    const px = 70 + x * scale * 2.1, py = 70 + d.y * scale * 2.1;
-    const alpha = Math.max(0.2, (z + 1) / 2);
-    ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
-    ctx.beginPath(); ctx.arc(px, py, z > 0 ? 2.1 : 1.1, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = `rgba(255, 105, 180, ${Math.max(0.2, (z + 1) / 2)})`;
+    ctx.beginPath(); ctx.arc(70 + x * scale * 2.1, 70 + d.y * scale * 2.1, z > 0 ? 2.1 : 1.1, 0, Math.PI * 2); ctx.fill();
   });
   requestAnimationFrame(spin);
 }
@@ -109,29 +103,23 @@ if "user" not in st.session_state:
         components.html(GLOBE_3D, height=265)
         with st.container(border=True):
             mode = st.radio("Access Mode", ("Member Login", "Create Account"), horizontal=True, label_visibility="collapsed")
-            st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
-            if mode == "Member Login":
-                em = st.text_input("Email Address", placeholder="you@example.com", key="in_em")
-                pw = st.text_input("Password", type="password", placeholder="••••••••", key="in_pw")
-                st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
-                if st.button("Unlock LexiTech Workspace", key="btn_in", use_container_width=True):
-                    try:
+            em = st.text_input("Email Address", placeholder="you@example.com")
+            pw = st.text_input("Password (min 6 chars)", type="password", placeholder="••••••••")
+            btn_label = "Unlock LexiTech Workspace" if mode == "Member Login" else "Launch My Free Workspace"
+            if st.button(btn_label, use_container_width=True):
+                try:
+                    if mode == "Member Login":
                         res = sb.auth.sign_in_with_password({"email": em.strip(), "password": pw})
-                        st.session_state["user"] = res.user
-                        st.session_state["sb_session"] = res.session
-                        st.rerun()
-                    except Exception as e:
-                        st.error(f"Login failed ({SB_URL}): {e}")
-            else:
-                em2 = st.text_input("Email Address", placeholder="you@example.com", key="up_em")
-                pw2 = st.text_input("Create Password (min 6 chars)", type="password", placeholder="••••••••", key="up_pw")
-                st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
-                if st.button("Launch My Free Workspace", key="btn_up", use_container_width=True):
-                    try:
-                        res = sb.auth.sign_up({"email": em2.strip(), "password": pw2})
+                    else:
+                        res = sb.auth.sign_up({"email": em.strip(), "password": pw})
                         if not res.session:
-                            res = sb.auth.sign_in_with_password({"email": em2.strip(), "password": pw2})
-                        st.session_state["user"] = res.user
+                            res = sb.auth.sign_in_with_password({"email": em.strip(), "password": pw})
+                    st.session_state["user"] = res.user
+                    st.session_state["sb_session"] = res.session
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Auth error ({SB_URL}): {e}")
+    st.stop()
 user = st.session_state["user"]
 projs = sb.table("projects").select("*").order("created_at", desc=True).execute().data or []
 
