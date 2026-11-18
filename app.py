@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from google import genai
 from google.genai import types
 from supabase import create_client
@@ -16,7 +17,7 @@ html, body, .stApp, p, label, h1, h2, h3, h4, li { font-family: 'Plus Jakarta Sa
 .mono-tag { font-family: 'JetBrains Mono', monospace !important; font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.08em; color: #B81D6F !important; text-transform: uppercase; }
 .nav-bar { background: rgba(255, 255, 255, 0.94); border: 1.5px solid #E5B8CE; border-radius: 14px; padding: 14px 22px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(184, 29, 111, 0.07); }
 .status-pill { background: #FDF2F7; border: 1px solid #B81D6F; border-radius: 999px; padding: 6px 14px; font-family: 'JetBrains Mono', monospace !important; font-size: 11px !important; font-weight: 700 !important; color: #B81D6F !important; }
-.hero-box { background: linear-gradient(135deg, #24101C 0%, #4A1533 55%, #881652 100%); border-radius: 18px; padding: 26px 28px; margin-bottom: 16px; box-shadow: 0 12px 32px rgba(184, 29, 111, 0.22); }
+.hero-box { background: linear-gradient(135deg, #24101C 0%, #4A1533 55%, #881652 100%); border-radius: 18px; padding: 20px 28px 24px; margin-bottom: 16px; box-shadow: 0 12px 32px rgba(184, 29, 111, 0.22); }
 .hero-box h1, .hero-box p, .hero-box span { color: #FFFFFF !important; }
 [data-testid="stVerticalBlockBorderWrapper"] { background: #FFFFFF !important; border: 2px solid #E5B8CE !important; border-top: 5px solid #B81D6F !important; border-radius: 18px !important; padding: 18px 22px !important; box-shadow: 0 14px 36px rgba(184, 29, 111, 0.10) !important; }
 .stSelectbox div[data-baseweb="select"] > div, .stMultiSelect div[data-baseweb="select"] > div, .stTextArea textarea, .stTextInput input, [data-testid="stFileUploaderDropzone"] { background-color: #FDF2F7 !important; color: #1A161F !important; border: 1.5px solid #E5B8CE !important; border-radius: 12px !important; padding: 10px 14px !important; }
@@ -56,12 +57,39 @@ LOGO_SVG = f"""
 </div>
 """
 
-SPHERE_BADGE = f"""
-<div style="display:flex;justify-content:center;margin-bottom:14px;">
-  <div style="background:linear-gradient(135deg,#FDF2F7 0%,#FFFFFF 100%);border:3px solid #F9A8D4;border-radius:50%;padding:12px;box-shadow:0 0 28px rgba(255,133,192,0.55),0 8px 20px rgba(0,0,0,0.28);display:inline-flex;align-items:center;justify-content:center;">
-    <img src="data:image/png;base64,{logo_b64}" style="width:92px;height:92px;object-fit:contain;" />
-  </div>
+GLOBE_3D = """
+<div style="background:linear-gradient(135deg,#24101C 0%,#4A1533 55%,#881652 100%);border-radius:18px;padding:18px 24px 22px;text-align:center;box-shadow:0 12px 32px rgba(184,29,111,0.22);font-family:system-ui,-apple-system,sans-serif;color:#FFFFFF;">
+  <canvas id="globe" width="140" height="140" style="display:block;margin:0 auto 6px;filter:drop-shadow(0 0 16px rgba(255,42,133,0.85));"></canvas>
+  <div style="font-family:monospace;font-size:11px;letter-spacing:0.12em;color:#F9A8D4;font-weight:700;">CLOUD-SAVED LEGAL &amp; TAX WORKSPACE</div>
+  <h1 style="margin:6px 0;font-size:25px;font-weight:800;color:#FFFFFF;">Welcome to LexiTech Vault</h1>
+  <p style="margin:0;font-size:13.5px;color:#FCE7F3;">Sign in or create a free account to save case folders and run all 4 forensic AI engines.</p>
 </div>
+<script>
+const g = document.getElementById('globe'), ctx = g.getContext('2d');
+let rot = 0;
+const dots = [];
+for (let lat = -80; lat <= 80; lat += 20) {
+  for (let lon = 0; lon < 360; lon += 20) {
+    const phi = lat * Math.PI / 180, theta = lon * Math.PI / 180;
+    dots.push({ x: Math.cos(phi)*Math.cos(theta), y: Math.sin(phi), z: Math.cos(phi)*Math.sin(theta) });
+  }
+}
+function spin() {
+  ctx.clearRect(0, 0, 140, 140);
+  rot += 0.018;
+  dots.forEach(d => {
+    const x = d.x * Math.cos(rot) - d.z * Math.sin(rot);
+    const z = d.x * Math.sin(rot) + d.z * Math.cos(rot);
+    const scale = 56 / (2.4 - z);
+    const px = 70 + x * scale * 2.1, py = 70 + d.y * scale * 2.1;
+    const alpha = Math.max(0.2, (z + 1) / 2);
+    ctx.fillStyle = `rgba(255, 105, 180, ${alpha})`;
+    ctx.beginPath(); ctx.arc(px, py, z > 0 ? 2.1 : 1.1, 0, Math.PI * 2); ctx.fill();
+  });
+  requestAnimationFrame(spin);
+}
+spin();
+</script>
 """
 
 sb = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
@@ -75,7 +103,7 @@ if "user" not in st.session_state:
     st.markdown(f'<div class="nav-bar">{LOGO_SVG}<div class="status-pill">● SECURE MATTER VAULT // v2.0</div></div>', unsafe_allow_html=True)
     _, mid, _ = st.columns((1, 1.35, 1))
     with mid:
-        st.markdown(f'<div class="hero-box" style="text-align:center;">{SPHERE_BADGE}<span style="font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:0.1em;">CLOUD-SAVED LEGAL &amp; TAX WORKSPACE</span><h1 style="margin:6px 0;font-size:26px;">Welcome to LexiTech Vault</h1><p style="margin:0;font-size:13.8px;">Sign in or create a free account to save case folders and run all 4 forensic AI engines.</p></div>', unsafe_allow_html=True)
+        components.html(GLOBE_3D, height=265)
         with st.container(border=True):
             mode = st.radio("Access Mode", ("Member Login", "Create Account"), horizontal=True, label_visibility="collapsed")
             st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
